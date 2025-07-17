@@ -1,174 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blip – Tune into Your DeFi Pulse</title>
-  <link href="https://fonts.googleapis.com/css2?family=Satoshi:opsz@12..72" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blip – Feel the Pulse of DeFi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Satoshi:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* 1. Reset & Base */
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body { font-family: 'Satoshi', sans-serif; background: #FFFFFF; color: #27272A; line-height: 1.6; }
-
+    /* Reset & Base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { position: relative; font-family: 'Satoshi', sans-serif; background: #FFFFFF; color: #27272A; overflow: hidden; scroll-behavior: smooth; }
     a { text-decoration: none; color: inherit; }
     button { font-family: inherit; cursor: pointer; border: none; border-radius: .375rem; }
+    section { padding: 6rem 2rem; }
 
-    /* 2. Header */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      background: #1E3A8A;
-    }
-    .logo {
-      display: flex;
-      align-items: center;
-      color: #FFFFFF;
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-    .logo svg { width: 36px; height: 36px; margin-right: .5rem; }
-    nav a {
-      margin-left: 1.5rem;
-      color: #FFFFFF;
-      font-weight: 500;
-    }
-    .btn-primary {
-      background: #22D3EE;
-      color: #FFFFFF;
-      padding: .5rem 1.5rem;
-      font-weight: 600;
-    }
+    /* Header */
+    header { position: fixed; top: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; background: rgba(30,58,138,0.85); backdrop-filter: blur(12px); z-index: 1000; }
+    .logo { display: flex; align-items: center; color: #FFFFFF; font-size: 1.25rem; font-weight: 700; }
+    .logo svg { width: 40px; height: 40px; margin-right: .5rem; }
+    nav { display: flex; gap: 2rem; }
+    nav a { position: relative; color: #FFFFFF; font-weight: 500; padding: .25rem 0; transition: color .3s; }
+    nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #22D3EE; transition: width .3s; }
+    nav a:hover { color: #22D3EE; }
+    nav a:hover::after { width: 100%; }
+    .btn-primary { background: linear-gradient(135deg, #22D3EE 0%, #3B82F6 100%); color: #FFFFFF; padding: .6rem 1.8rem; font-weight: 600; box-shadow: 0 4px 14px rgba(34,211,238,0.4); transition: transform .2s, box-shadow .2s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,211,238,0.5); }
 
-    /* 3. Hero */
-    .hero {
-      text-align: center;
-      padding: 4rem 2rem;
-      background: #F9FAFB;
-    }
-    .hero h1 {
-      font-size: 3rem;
-      color: #1E3A8A;
-      margin-bottom: 1rem;
-    }
-    .hero p {
-      color: #27272A;
-      font-size: 1.125rem;
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
+    /* Hero */
+    .hero { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; background: linear-gradient(to bottom right, #E1F1FD, #F9FAFB); overflow: hidden; }
+    .hero h1 { font-size: 4rem; color: #1E3A8A; margin-bottom: 1rem; line-height: 1.2; }
+    .hero p { font-size: 1.25rem; color: #27272A; max-width: 640px; margin-bottom: 2rem; }
 
-    /* 4. Features */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
-      padding: 3rem 2rem;
-    }
-    .feature-card {
-      background: #FFFFFF;
-      border: 1px solid #E5E7EB;
-      border-radius: .5rem;
-      padding: 2rem;
-      text-align: left;
-    }
-    .feature-card h3 {
-      font-size: 1.25rem;
-      color: #1E3A8A;
-      margin-bottom: .75rem;
-    }
-    .feature-card p {
-      color: #4B5563;
-    }
-    .feature-card .highlight {
-      color: #F87171;
-      font-weight: 600;
-    }
+    /* Floating ECG Machines Container */
+    #machineContainer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+    .machine { position: absolute; width: 30px; height: 30px; opacity: 0.2; pointer-events: auto; will-change: transform; }
 
-    /* 5. Dashboard Preview */
-    .dashboard {
-      background: #1E3A8A;
-      color: #FFFFFF;
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-    .dashboard h2 {
-      margin-bottom: 1.5rem;
-      font-size: 2rem;
-    }
-    .dashboard img {
-      max-width: 100%;
-      border-radius: .5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+    /* ECG Blip Animation */
+    .blip { position: absolute; width: 40px; height: 20px; pointer-events: none; transform: translate(-50%, -50%) scale(0); opacity: 1; transition: transform 0.4s ease-out, opacity 0.8s ease-out; }
+    .blip path { stroke: #22D3EE; stroke-width: 3; fill: none; }
+    .blip.animate { transform: translate(-50%, -50%) scale(1); opacity: 0; }
 
-    /* 6. Footer */
-    footer {
-      background: #27272A;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 2rem;
-    }
-    footer p {
-      font-size: .875rem;
-    }
+    /* Features */
+    .features .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; }
+    .feature-card { background: #FFFFFF; border-radius: .5rem; padding: 2.5rem; text-align: left; box-shadow: 0 6px 20px rgba(0,0,0,0.08); transition: transform .3s, box-shadow .3s; }
+    .feature-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(0,0,0,0.12); }
+    .feature-card h3 { font-size: 1.5rem; color: #1E3A8A; margin-bottom: 1rem; }
+    .feature-card p { color: #4B5563; line-height: 1.6; }
+    .feature-card .highlight { color: #F87171; font-weight: 600; }
+
+    /* Dashboard Preview */
+    .dashboard { background: #1E3A8A; color: #FFFFFF; text-align: center; padding-bottom: 6rem; }
+    .dashboard h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+    .dashboard img { max-width: 90%; border-radius: .5rem; box-shadow: 0 8px 24px rgba(0,0,0,0.3); transition: transform .3s; }
+    .dashboard img:hover { transform: scale(1.03); }
+
+    /* Footer */
+    footer { background: #27272A; color: #FFFFFF; text-align: center; padding: 2.5rem 2rem; }
+    footer p { font-size: .875rem; }
   </style>
 </head>
 <body>
-
-  <!-- Header -->
   <header>
     <div class="logo">
-      <!-- Two overlapping arrows forming the stylized “B” -->
-      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 50 L40 30 L60 50" stroke="#22D3EE" stroke-width="8" stroke-linecap="round" fill="none"/>
-        <path d="M20 60 L40 40 L60 60" stroke="#22D3EE" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <svg width="40" height="40" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,25 H15 L25,15 L30,35 L40,25 H100" stroke="#22D3EE" stroke-width="5" fill="none" stroke-linecap="round" />
       </svg>
       Blip
     </div>
     <nav>
       <a href="#features">Features</a>
-      <a href="#tokenomics">Tokenomics</a>
       <a href="#dashboard">Dashboard</a>
-      <button class="btn-primary">Get Started</button>
+      <button class="btn-primary">Join the Beat</button>
     </nav>
   </header>
-
-  <!-- Hero -->
+  <div id="machineContainer"></div>
   <section class="hero">
-    <h1>Tune into Your DeFi Pulse</h1>
-    <p>Blip is a deflationary token on HyperEVM—holders govern leveraged trades on Hyperliquid via an automated treasury, earn passive rebase rewards, and watch the supply shrink with every transaction.</p>
-    <button class="btn-primary">Join the Beat</button>
+    <h1>Feel the Pulse of DeFi</n1>
+    <p>Blip is a deflationary token on HyperEVM—holders govern treasury trades, earn passive rebase rewards, and watch supply contract with every beat.</p>
+    <button class="btn-primary">Get Started</button>
   </section>
-
-  <!-- Features -->
   <section id="features" class="features">
-    <div class="feature-card">
-      <h3>Deflationary Burn</h3>
-      <p>Every transaction triggers a small <span class="highlight">burn</span>, ensuring supply contracts and price floor climbs over time.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Governed Treasury</h3>
-      <p>Stake BLIP to <span class="highlight">vote</span> on automated long/short positions via Hyperliquid—fully decentralized, no multisigs required.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Passive Rebase Rewards</h3>
-      <p>Earn yield simply by <span class="highlight">holding</span>, with bonus rebase for active governance participants.</p>
+    <div class="container">
+      <div class="feature-card">
+        <h3>Deflationary Burn</h3>
+        <p>Every transaction triggers a <span class="highlight">burn</span>, shrinking supply and lifting price floor.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Governed Treasury</h3>
+        <p>Stake BLIP to <span class="highlight">vote</span> on automated long/short strategies via Hyperliquid.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Passive Rebase Rewards</h3>
+        <p>Earn yields by simply <span class="highlight">holding</span>, with bonus APY for active governors.</p>
+      </div>
     </div>
   </section>
-
-  <!-- Dashboard Preview -->
   <section id="dashboard" class="dashboard">
     <h2>Your Blip Dashboard</h2>
-    <!-- Placeholder image, swap with real UI screenshot -->
-    <img src="https://via.placeholder.com/600x350/1E3A8A/FFFFFF?text=Dashboard+Mockup" alt="Blip dashboard preview">
+    <img src="https://via.placeholder.com/600x350/ffffff/1E3A8A?text=Blip+Dashboard+Mockup" alt="Blip dashboard" />
   </section>
-
-  <!-- Footer -->
   <footer>
     <p>&copy; 2025 Blip. All rights reserved.</p>
   </footer>
-
+  <script>
+    // Instantiate machines across full page
+    const container = document.getElementById('machineContainer');
+    const machines = [];
+    const count = 500;
+    const svgMarkup = `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="16" width="48" height="32" rx="4" ry="4" stroke="#3B82F6" stroke-width="2" fill="none"/><path d="M12,32 L24,32 L28,24 L32,40 L36,32 L52,32" stroke="#3B82F6" stroke-width="2" fill="none"/></svg>`;
+    for (let i = 0; i < count; i++) {
+      const div = document.createElement('div'); div.classList.add('machine'); div.innerHTML = svgMarkup;
+      const size = 20 + Math.random()*30; div.style.width = size+'px'; div.style.height = size+'px';
+      div.x = Math.random()*window.innerWidth;
+      div.y = Math.random()*window.innerHeight;
+      div.vx = (Math.random()-0.5)*0.3; div.vy = (Math.random()-0.5)*0.3;
+      container.appendChild(div); machines.push(div);
+    }
+    function animate(){ machines.forEach(m=>{
+        m.x += m.vx; m.y += m.vy;
+        if(m.x<0||m.x>window.innerWidth-m.clientWidth) m.vx*=-1;
+        if(m.y<0||m.y>window.innerHeight-m.clientHeight) m.vy*=-1;
+        m.style.transform = `translate(${m.x}px,${m.y}px)`;
+      }); requestAnimationFrame(animate);
+    } animate();
+    container.addEventListener('mousemove', e=>{
+      machines.forEach(m=>{
+        const dx=m.x+ m.clientWidth/2 - e.clientX, dy=m.y+ m.clientHeight/2 - e.clientY;
+        const dist=Math.hypot(dx,dy);
+        if(dist<100){ const f=(100-dist)/100*0.5; m.vx+=(dx/dist)*f; m.vy+=(dy/dist)*f; }
+      });
+    });
+    // Click-triggered ECG blip
+    document.addEventListener('click', e=>{
+      const blip=document.createElementNS('http://www.w3.org/2000/svg','svg'); blip.setAttribute('class','blip'); blip.setAttribute('viewBox','0 0 100 50'); blip.innerHTML='<path d="M0,25 H15 L25,15 L30,35 L40,25 H100"/>';
+      document.body.appendChild(blip); blip.style.left=e.pageX+'px'; blip.style.top=e.pageY+'px'; requestAnimationFrame(()=>blip.classList.add('animate'));
+      blip.addEventListener('transitionend',()=>blip.remove());
+    });
+  </script>
 </body>
 </html>
