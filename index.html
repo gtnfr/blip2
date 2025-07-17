@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blip – Tune into Your DeFi Pulse</title>
+  <link href="https://fonts.googleapis.com/css2?family=Satoshi:opsz@12..72" rel="stylesheet">
+  <style>
+    /* 1. Reset & Base */
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family: 'Satoshi', sans-serif; background: #FFFFFF; color: #27272A; line-height: 1.6; }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; border-radius: .375rem; }
+
+    /* 2. Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      background: #1E3A8A;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      color: #FFFFFF;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .logo svg { width: 36px; height: 36px; margin-right: .5rem; }
+    nav a {
+      margin-left: 1.5rem;
+      color: #FFFFFF;
+      font-weight: 500;
+    }
+    .btn-primary {
+      background: #22D3EE;
+      color: #FFFFFF;
+      padding: .5rem 1.5rem;
+      font-weight: 600;
+    }
+
+    /* 3. Hero */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: #F9FAFB;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: #1E3A8A;
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      color: #27272A;
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    /* 4. Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      padding: 3rem 2rem;
+    }
+    .feature-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: .5rem;
+      padding: 2rem;
+      text-align: left;
+    }
+    .feature-card h3 {
+      font-size: 1.25rem;
+      color: #1E3A8A;
+      margin-bottom: .75rem;
+    }
+    .feature-card p {
+      color: #4B5563;
+    }
+    .feature-card .highlight {
+      color: #F87171;
+      font-weight: 600;
+    }
+
+    /* 5. Dashboard Preview */
+    .dashboard {
+      background: #1E3A8A;
+      color: #FFFFFF;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .dashboard h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+    .dashboard img {
+      max-width: 100%;
+      border-radius: .5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* 6. Footer */
+    footer {
+      background: #27272A;
+      color: #FFFFFF;
+      text-align: center;
+      padding: 2rem;
+    }
+    footer p {
+      font-size: .875rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <!-- Two overlapping arrows forming the stylized “B” -->
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 50 L40 30 L60 50" stroke="#22D3EE" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <path d="M20 60 L40 40 L60 60" stroke="#22D3EE" stroke-width="8" stroke-linecap="round" fill="none"/>
+      </svg>
+      Blip
+    </div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#tokenomics">Tokenomics</a>
+      <a href="#dashboard">Dashboard</a>
+      <button class="btn-primary">Get Started</button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Tune into Your DeFi Pulse</h1>
+    <p>Blip is a deflationary token on HyperEVM—holders govern leveraged trades on Hyperliquid via an automated treasury, earn passive rebase rewards, and watch the supply shrink with every transaction.</p>
+    <button class="btn-primary">Join the Beat</button>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="features">
+    <div class="feature-card">
+      <h3>Deflationary Burn</h3>
+      <p>Every transaction triggers a small <span class="highlight">burn</span>, ensuring supply contracts and price floor climbs over time.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Governed Treasury</h3>
+      <p>Stake BLIP to <span class="highlight">vote</span> on automated long/short positions via Hyperliquid—fully decentralized, no multisigs required.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Passive Rebase Rewards</h3>
+      <p>Earn yield simply by <span class="highlight">holding</span>, with bonus rebase for active governance participants.</p>
+    </div>
+  </section>
+
+  <!-- Dashboard Preview -->
+  <section id="dashboard" class="dashboard">
+    <h2>Your Blip Dashboard</h2>
+    <!-- Placeholder image, swap with real UI screenshot -->
+    <img src="https://via.placeholder.com/600x350/1E3A8A/FFFFFF?text=Dashboard+Mockup" alt="Blip dashboard preview">
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Blip. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
